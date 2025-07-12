@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Latihan Perulangan</title>
+  </head>
+  <body>
+    <h2>Daftar Nama Teman Kelas</h2>
+    <ul id="daftar-mahasiswa">
+      <!-- Konten akan diisi oleh JavaScript -->
+    </ul>
+    <script>
+      var nmmhs = [
+        "Agus Coding",
+        "Prasastian MaunaKea",
+        "Zidane Ronaldo",
+        "Sarah 808",
+        "Salman Silalahi",
+      ];
+      var daftarElement = document.getElementById("daftar-mahasiswa");
+      for (let i = 0; i < nmmhs.length; i++) {
+        daftarElement.innerHTML += "<li>" + nmmhs[i] + "</li>";
+      }
+    </script>
+  </body>
+</html>

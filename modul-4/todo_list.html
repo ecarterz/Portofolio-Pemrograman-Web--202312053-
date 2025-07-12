@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aplikasi To-Do List</title>
+  </head>
+  <body>
+    <h2>To-Do List Sederhana</h2>
+    <input type="text" id="input-todo" placeholder="Ketik tugas baru..." />
+    <button onclick="tambahTugas()">Tambah</button>
+    <ul id="daftar-tugas"></ul>
+
+    <script>
+      var tugas = [];
+
+      function tambahTugas() {
+        var inputElement = document.getElementById("input-todo");
+        var newTask = inputElement.value.trim();
+
+        if (newTask !== "") {
+          tugas.push(newTask);
+          inputElement.value = "";
+          tampilkanDaftar();
+        } else {
+          alert("Tugas tidak boleh kosong!");
+        }
+      }
+
+      function hapusTugas(index) {
+        tugas.splice(index, 1);
+        tampilkanDaftar(); // Perbarui tampilan daftar setelah penghapusan
+      }
+
+      function tampilkanDaftar() {
+        var daftarElement = document.getElementById("daftar-tugas");
+        daftarElement.innerHTML = "";
+
+        for (let i = 0; i < tugas.length; i++) {
+          var listItem = document.createElement("li");
+          listItem.textContent = tugas[i];
+
+          // Tambahkan tombol hapus untuk setiap item
+          var deleteButton = document.createElement("button");
+          deleteButton.textContent = "Hapus";
+          // Ketika tombol hapus diklik, panggil fungsi hapusTugas dengan indeks item saat ini
+          deleteButton.onclick = (function (index) {
+            return function () {
+              hapusTugas(index);
+            };
+          })(i); // Gunakan closure untuk menyimpan nilai 'i' yang benar
+
+          listItem.appendChild(deleteButton); // Tambahkan tombol ke <li>
+          daftarElement.appendChild(listItem); // Tambahkan <li> ke <ul>
+        }
+      }
+    </script>
+  </body>
+</html>

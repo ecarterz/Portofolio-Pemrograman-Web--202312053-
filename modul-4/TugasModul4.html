@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toko Elektronik Cepat</title>
+    <style>
+      /* Desain dasar - Nuansa Ungu */
+      :root {
+        --purple-dark: #4a235a; /* Ungu gelap untuk teks utama, dll. */
+        --purple-medium: #8e44ad; /* Ungu sedang untuk header, tombol */
+        --purple-light: #d8bfd8; /* Ungu muda untuk background elemen */
+        --purple-very-light: #f5eff7; /* Ungu sangat muda untuk background body */
+        --accent-green: #2ecc71; /* Hijau untuk harga (kontras yang baik dengan ungu) */
+        --text-dark: #2c3e50; /* Teks gelap */
+        --text-light: #ecf0f1; /* Teks terang */
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Font lebih modern */
+        margin: 0;
+        padding: 20px;
+        background-color: var(
+          --purple-very-light
+        ); /* Latar belakang body dengan nuansa ungu sangat muda */
+        color: var(--text-dark); /* Warna teks default */
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: #fff; /* Tetap putih agar bersih */
+        padding: 30px; /* Sedikit lebih banyak padding */
+        border-radius: 12px; /* Radius sudut lebih besar */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Shadow lebih menonjol */
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 30px; /* Margin lebih besar */
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--purple-light); /* Border bawah dengan ungu muda */
+      }
+
+      header h1 {
+        color: var(--purple-dark); /* Judul dengan ungu gelap */
+        margin-bottom: 8px;
+        font-size: 2.5em; /* Ukuran font lebih besar */
+      }
+
+      #current-time {
+        font-size: 1em;
+        color: var(--purple-medium); /* Waktu dengan ungu sedang */
+        font-weight: 500;
+      }
+
+      /* Layout Grid untuk Produk dan Daftar */
+      .product-section {
+        display: grid;
+        grid-template-columns: 2fr 1fr; /* Display utama 2/3, daftar 1/3 */
+        gap: 25px; /* Jarak antar kolom lebih besar */
+        margin-top: 25px;
+      }
+
+      .main-display {
+        border: 1px solid var(--purple-light); /* Border dengan ungu muda */
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #fff; /* Tetap putih */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .product-list {
+        border: 1px solid var(--purple-light); /* Border dengan ungu muda */
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #fff; /* Tetap putih */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .main-display h2,
+      .product-list h2,
+      .order-form h2,
+      #order-summary h4 {
+        color: var(--purple-dark); /* Judul bagian dengan ungu gelap */
+        border-bottom: 1px solid var(--purple-light);
+        padding-bottom: 10px;
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
+
+      /* Slideshow Gambar */
+      .slideshow-container {
+        position: relative;
+        max-width: 100%;
+        margin: auto;
+        text-align: center;
+        overflow: hidden; /* Pastikan tidak ada yang meluber */
+      }
+
+      .product-image {
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+        border-radius: 8px; /* Sudut gambar sedikit bulat */
+        margin-bottom: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Tambah shadow pada gambar */
+      }
+
+      .product-image:not(.active) {
+        display: none;
+      }
+
+      .prev,
+      .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: auto;
+        padding: 15px 20px;
+        color: var(--text-light); /* Warna teks putih */
+        font-weight: bold;
+        font-size: 28px; /* Ukuran panah lebih besar */
+        transition: 0.3s ease;
+        user-select: none;
+        background-color: rgba(
+          74,
+          35,
+          90,
+          0.6
+        ); /* Ungu gelap semi-transparan */
+        backdrop-filter: blur(5px); /* Efek blur pada background (modern) */
+        border: none; /* Hilangkan border bawaan */
+      }
+
+      .prev {
+        left: 0;
+        border-radius: 0 8px 8px 0; /* Lebih bulat di sisi yang menempel */
+      }
+
+      .next {
+        right: 0;
+        border-radius: 8px 0 0 8px; /* Lebih bulat di sisi yang menempel */
+      }
+
+      .prev:hover,
+      .next:hover {
+        background-color: var(--purple-dark); /* Ungu gelap solid saat hover */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Tambah shadow saat hover */
+      }
+
+      .product-details h3 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: var(--purple-medium); /* Nama produk dengan ungu sedang */
+        font-size: 1.6em;
+      }
+
+      .product-details p {
+        font-size: 1.4em; /* Ukuran harga lebih besar */
+        font-weight: bold;
+        color: var(--accent-green); /* Harga dengan hijau aksen untuk kontras */
+      }
+
+      /* Daftar Produk yang Bisa Diklik */
+      .product-list ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .product-list li {
+        padding: 12px 15px; /* Padding lebih nyaman */
+        margin-bottom: 8px; /* Margin lebih besar */
+        border: 1px solid var(--purple-light); /* Border ungu muda */
+        border-radius: 6px;
+        cursor: pointer;
+        background-color: #fff;
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Transisi halus */
+      }
+
+      .product-list li:hover {
+        background-color: var(
+          --purple-very-light
+        ); /* Ungu sangat muda saat hover */
+        transform: translateX(5px); /* Efek geser sedikit */
+      }
+
+      .product-list li.active {
+        background-color: var(
+          --purple-medium
+        ); /* Ungu sedang untuk item aktif */
+        color: white;
+        border-color: var(--purple-medium);
+        font-weight: bold;
+      }
+
+      /* Form Pemesanan */
+      .order-form {
+        margin-top: 40px; /* Margin lebih besar */
+        padding: 30px;
+        border: 1px solid var(--purple-light);
+        border-radius: 10px;
+        background-color: var(
+          --purple-very-light
+        ); /* Latar belakang form dengan ungu sangat muda */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .form-group {
+        margin-bottom: 20px; /* Margin antar grup form */
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px; /* Margin di bawah label */
+        font-weight: bold;
+        color: var(--purple-dark); /* Label dengan ungu gelap */
+      }
+
+      .form-group input[type="text"],
+      .form-group input[type="number"] {
+        width: calc(100% - 22px); /* Sesuaikan lebar */
+        padding: 12px; /* Padding lebih besar */
+        border: 1px solid var(--purple-medium); /* Border input ungu sedang */
+        border-radius: 6px;
+        font-size: 1em;
+        outline: none; /* Hilangkan outline default */
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Sedikit inner shadow */
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input[type="text"]:focus,
+      .form-group input[type="number"]:focus {
+        border-color: var(--purple-dark); /* Border lebih gelap saat fokus */
+      }
+
+      button {
+        padding: 12px 25px; /* Padding tombol lebih besar */
+        background-color: var(--purple-medium); /* Tombol dengan ungu sedang */
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1.1em; /* Ukuran font tombol lebih besar */
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      button:hover {
+        background-color: var(--purple-dark); /* Ungu gelap saat hover */
+        transform: translateY(-2px); /* Efek angkat sedikit saat hover */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Area Output */
+      #order-summary {
+        margin-top: 40px;
+        padding: 30px;
+        border: 1px solid var(--purple-light);
+        border-radius: 10px;
+        background-color: var(--purple-very-light);
+        min-height: 100px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      #order-summary h4 {
+        margin-top: 0;
+        color: var(--purple-dark);
+      }
+      #order-summary p {
+        line-height: 1.6;
+      }
+      #order-summary strong {
+        color: var(--purple-medium);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Toko Elektronik Cepat</h1>
+        <p id="current-time"></p>
+      </header>
+
+      <div class="product-section">
+        <div class="main-display">
+          <h2>Detail Produk</h2>
+          <div class="slideshow-container">
+            <img
+              class="product-image"
+              id="main-product-image"
+              alt="Produk Elektronik"
+            />
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+          </div>
+          <div class="product-details">
+            <h3 id="product-name"></h3>
+            <p id="product-price"></p>
+          </div>
+        </div>
+
+        <div class="product-list">
+          <h2>Daftar Produk</h2>
+          <ul id="product-list-ul"></ul>
+        </div>
+      </div>
+
+      <div class="order-form">
+        <h2>Form Pemesanan</h2>
+        <div class="form-group">
+          <label for="customer-name">Nama Pemesan:</label>
+          <input
+            type="text"
+            id="customer-name"
+            placeholder="Masukkan nama Anda"
+          />
+        </div>
+        <div class="form-group">
+          <label for="quantity">Jumlah Pesan:</label>
+          <input type="number" id="quantity" min="1" value="1" />
+        </div>
+        <div class="form-group">
+          <label for="promo-code">Kode Promo (optional):</label>
+          <input type="text" id="promo-code" placeholder="Contoh: DISKON10" />
+        </div>
+        <button onclick="placeOrder()">Pesan Sekarang</button>
+      </div>
+
+      <div id="order-summary">
+        <h4>Ringkasan Pesanan Anda:</h4>
+      </div>
+    </div>
+
+    <script>
+      // 1. Header & Waktu Transaksi
+      function updateTime() {
+        const now = new Date();
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        };
+        document.getElementById(
+          "current-time"
+        ).textContent = `Waktu Transaksi: ${now.toLocaleDateString(
+          "id-ID",
+          options
+        )}`;
+      }
+      setInterval(updateTime, 1000); // Perbarui setiap detik
+      updateTime(); // Panggil sekali saat dimuat agar langsung tampil
+
+      // 2. & 3. Display Produk & Daftar Produk
+      const products = [
+        {
+          name: "Dell Alienware m15 R5",
+          price: 46449000,
+          images: [
+            "AlienWare-M15-R5.jpg", // Pastikan nama file ini sama persis
+            "AlienWare-M15-R5-2.jpg", // Pastikan nama file ini sama persis
+            "AlienWare-M15-R5-5.jpg", // Pastikan nama file ini sama persis
+          ],
+        },
+        {
+          name: "Asus ROG Phone 7 [RAM 12GB/256GB]",
+          price: 11499000,
+          images: [
+            // Gunakan gambar lokal jika ada, atau placeholder ini
+            "rog-7-1.jpg", // Contoh: Ganti dengan gambar HP lokal
+            "rog-7-4.jpg", // Contoh: Ganti dengan gambar HP lokal
+            "rog-7-6.jpg", // Contoh: Ganti dengan gambar HP lokal
+            // "https://via.placeholder.com/600x300/5733FF/FFFFFF?text=HP+Depan",
+            // "https://via.placeholder.com/600x300/FF33A1/FFFFFF?text=HP+Belakang",
+            // "https://via.placeholder.com/600x300/33FFFF/000000?text=HP+Layar",
+          ],
+        },
+        {
+          name: "Printer HP Smart Tank 520 All-in-One",
+          price: 2049000,
+          images: [
+            // Gunakan gambar lokal jika ada, atau placeholder ini
+            "Smart-Tank-web.jpg", // Contoh: Ganti dengan gambar Smartwatch lokal
+            "Smart-Tank-3.jpg", // Contoh: Ganti dengan gambar Smartwatch lokal
+            "Smart-Tank-4.jpg", // Contoh: Ganti dengan gambar Smartwatch lokal
+            // "https://via.placeholder.com/600x300/FFD433/000000?text=Smartwatch+Muka",
+            // "https://via.placeholder.com/600x300/33FFD4/000000?text=Smartwatch+Samping",
+            // "https://via.placeholder.com/600x300/D433FF/FFFFFF?text=Smartwatch+Display",
+          ],
+        },
+      ];
+
+      let currentProductIndex = 0;
+      let currentImageIndex = 0;
+
+      function displayProduct(productIndex) {
+        currentProductIndex = productIndex;
+        currentImageIndex = 0; // Reset gambar ke awal saat produk berganti
+        const product = products[currentProductIndex];
+
+        document.getElementById("product-name").textContent = product.name;
+        document.getElementById(
+          "product-price"
+        ).textContent = `Harga: Rp ${product.price.toLocaleString("id-ID")}`;
+
+        const mainProductImage = document.getElementById("main-product-image");
+        mainProductImage.src = product.images[currentImageIndex];
+        mainProductImage.classList.add("active"); // Pastikan gambar yang dipilih aktif
+
+        // Aktifkan item di daftar produk
+        const productListItems = document.querySelectorAll(
+          "#product-list-ul li"
+        );
+        productListItems.forEach((item, index) => {
+          if (index === productIndex) {
+            item.classList.add("active");
+          } else {
+            item.classList.remove("active");
+          }
+        });
+      }
+
+      // Image Slideshow (Praktikum 11)
+      function plusSlides(n) {
+        const product = products[currentProductIndex];
+        currentImageIndex += n;
+
+        if (currentImageIndex >= product.images.length) {
+          currentImageIndex = 0;
+        }
+        if (currentImageIndex < 0) {
+          currentImageIndex = product.images.length - 1;
+        }
+        const mainProductImage = document.getElementById("main-product-image");
+        mainProductImage.src = product.images[currentImageIndex];
+        mainProductImage.classList.add("active");
+      }
+
+      // Generate Daftar Produk (Praktikum 4)
+      function generateProductList() {
+        const productListUl = document.getElementById("product-list-ul");
+        productListUl.innerHTML = ""; // Bersihkan daftar sebelumnya
+
+        for (let i = 0; i < products.length; i++) {
+          const li = document.createElement("li");
+          li.textContent = `${products[i].name} - Rp ${products[
+            i
+          ].price.toLocaleString("id-ID")}`;
+          li.onclick = (function (index) {
+            return function () {
+              displayProduct(index);
+            };
+          })(i); // Gunakan closure untuk menangkap indeks yang benar
+          productListUl.appendChild(li);
+        }
+      }
+
+      // Inisialisasi saat halaman dimuat
+      window.onload = function () {
+        generateProductList();
+        displayProduct(0); // Tampilkan produk pertama saat halaman dimuat
+      };
+
+      // 5. Logika Pemesanan
+      function placeOrder() {
+        const customerNameInput = document.getElementById("customer-name");
+        const quantityInput = document.getElementById("quantity");
+        const promoCodeInput = document.getElementById("promo-code");
+        const orderSummaryDiv = document.getElementById("order-summary");
+
+        const customerName = customerNameInput.value.trim();
+        const quantity = parseInt(quantityInput.value);
+        const promoCode = promoCodeInput.value.trim().toUpperCase(); // Ubah ke huruf kapital
+
+        const currentProduct = products[currentProductIndex];
+        const productPrice = currentProduct.price;
+        const productName = currentProduct.name;
+
+        // Validasi Form (Praktikum 5)
+        if (customerName === "") {
+          alert("Nama pemesan tidak boleh kosong!");
+          customerNameInput.focus();
+          return;
+        }
+        if (isNaN(quantity) || quantity <= 0) {
+          alert("Jumlah pesan harus lebih dari 0!");
+          quantityInput.focus();
+          return;
+        }
+
+        // Perhitungan Total
+        let subtotal = productPrice * quantity;
+        let discount = 0;
+
+        // Logika Percabangan (Praktikum 3)
+        if (promoCode === "DISKON10") {
+          discount = subtotal * 0.1; // Potongan 10%
+          alert(
+            "Kode promo 'DISKON10' berhasil diterapkan! Anda mendapatkan diskon 10%."
+          );
+        } else if (promoCode !== "") {
+          alert("Kode promo tidak valid. Tidak ada diskon yang diterapkan.");
+        }
+
+        let total = subtotal - discount;
+
+        // Generate Order ID (Praktikum 9)
+        // Menggunakan Math.random() untuk angka acak 5 digit
+        const randomID = Math.floor(10000 + Math.random() * 90000);
+        const orderID = `INV-${randomID}`;
+
+        // Tampilkan Struk/Ringkasan Pesanan
+        orderSummaryDiv.innerHTML = `
+          <h4>Ringkasan Pesanan Anda:</h4>
+          <p><strong>Order ID:</strong> ${orderID}</p>
+          <p><strong>Nama Pemesan:</strong> ${customerName}</p>
+          <p><strong>Nama Produk:</strong> ${productName}</p>
+          <p><strong>Jumlah:</strong> ${quantity}</p>
+          <p><strong>Subtotal:</strong> Rp ${subtotal.toLocaleString(
+            "id-ID"
+          )}</p>
+          <p><strong>Potongan:</strong> Rp ${discount.toLocaleString(
+            "id-ID"
+          )}</p>
+          <p><strong>Total Akhir:</strong> Rp ${total.toLocaleString(
+            "id-ID"
+          )}</p>
+        `;
+
+        // Opsional: Reset form setelah pemesanan
+        customerNameInput.value = "";
+        quantityInput.value = "1";
+        promoCodeInput.value = "";
+      }
+    </script>
+  </body>
+</html>
