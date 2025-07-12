@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulir Pendaftaran Mahasiswa Baru STITEK</title>
+</head>
+<body style="background-color: #e3f2ff; margin: 20px; font-family: Arial, sans-serif;">
+
+  <!-- Gambar logo kampus -->
+  <img src="logo.png" alt="Logo Kampus" width="100"><br><br>
+
+  <!-- Heading utama -->
+  <h1>Formulir Pendaftaran Mahasiswa Baru</h1>
+
+  <!-- Formulir -->
+  <form action="#" method="post">
+    
+    <!-- Data Pribadi -->
+    <fieldset>
+      <legend>Data Pribadi</legend>
+
+      <label for="nama">Nama Lengkap:</label><br>
+      <input type="text" id="nama" name="nama" placeholder="Contoh: Hendryck" required><br><br>
+
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" placeholder="Contoh: hendryck@email.com" required><br><br>
+
+      <label>Jenis Kelamin:</label><br>
+      <input type="radio" id="pria" name="gender" value="Pria" required>
+      <label for="pria">Pria</label><br>
+      <input type="radio" id="wanita" name="gender" value="Wanita">
+      <label for="wanita">Wanita</label><br><br>
+
+    </fieldset>
+
+    <!-- Hobi -->
+    <fieldset>
+      <legend>Hobi</legend>
+      <input type="checkbox" id="membaca" name="hobi[]" value="Membaca">
+      <label for="membaca">Membaca</label><br>
+      <input type="checkbox" id="olahraga" name="hobi[]" value="Olahraga">
+      <label for="olahraga">Olahraga</label><br>
+      <input type="checkbox" id="musik" name="hobi[]" value="Musik">
+      <label for="musik">Musik</label><br><br>
+    </fieldset>
+
+    <!-- Jurusan -->
+    <fieldset>
+      <legend>Jurusan Pilihan</legend>
+      <label for="jurusan">Pilih Jurusan:</label><br>
+      <select id="jurusan" name="jurusan" required>
+        <option value="">--Pilih--</option>
+        <option value="Informatika">Teknik Informatika</option>
+        <option value="Manajemen">Manajemen</option>
+        <option value="Akuntansi">Akuntansi</option>
+      </select><br><br>
+    </fieldset>
+
+    <!-- Alamat -->
+    <label for="alamat">Alamat Lengkap:</label><br>
+    <textarea id="alamat" name="alamat" rows="4" cols="50" placeholder="Tuliskan alamat lengkap Anda..."></textarea><br><br>
+
+    <!-- Tombol Submit -->
+    <button type="submit">Kirim Formulir</button>
+
+  </form>
+
+  <!-- Link informasi kampus -->
+  <p>Untuk informasi lebih lanjut, kunjungi halaman <a href="https://siakad.stitek.ac.id">Informasi Kampus</a>.</p>
+
+  <!-- Komentar HTML -->
+  <!-- Script form ini dibuat untuk memenuhi tugas praktikum Pendaftaran Mahasiswa Baru -->
+
+</body>
+</html>
