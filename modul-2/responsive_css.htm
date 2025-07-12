@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #3498db; /* Biru (desktop) */
+      font-family: Arial, sans-serif;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .grid-item {
+      background-color: #ffffff;
+      padding: 30px;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-size: 24px; /* Ukuran teks default (desktop) */
+    }
+
+    /* Media Query untuk layar ≤ 600px */
+    @media only screen and (max-width: 600px) {
+      body {
+        background-color: #e74c3c; /* Merah (mobile) */
+      }
+
+      .grid-container {
+        grid-template-columns: 1fr; /* 1 kolom */
+        padding: 10px;
+      }
+
+      .grid-item {
+        font-size: 18px; /* Ukuran teks lebih kecil */
+      }
+    }
+  </style>
+  <title>Responsive Grid Page</title>
+</head>
+<body>
+
+  <div class="grid-container">
+    <div class="grid-item">Konten 1</div>
+    <div class="grid-item">Konten 2</div>
+    <div class="grid-item">Konten 3</div>
+    <div class="grid-item">Konten 4</div>
+    <div class="grid-item">Konten 5</div>
+    <div class="grid-item">Konten 6</div>
+  </div>
+
+</body>
+</html>
